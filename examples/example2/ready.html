@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html ng-app>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Angular example 1</title>
+    <script src="../common/js/angular.min.js"></script>
+</head>
+<body ng-init="taskList=['Show presentation', 'Learn Angular', 'Do shopping']">
+<div>
+    <h1>Task list!</h1>
+    <label>Search:</label>
+    <input type="text" ng-model="searchPhrase"/> {{ searchPhrase }}
+    <br><br>
+
+    <ul>
+        <li ng-repeat="task in taskList | filter:searchPhrase">{{ task }}</li>
+    </ul>
+</div>
+</body>
+</html>

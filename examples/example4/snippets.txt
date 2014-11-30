@@ -1,0 +1,23 @@
+ app.config(function ($routeProvider) {
+        $routeProvider.when("/", {
+            controller: 'taskListController',
+            templateUrl: 'views/task-ready.html'
+        }).when("/details/:id", {
+            controller: 'taskDetailsController',
+            templateUrl: 'views/details-ready.html'
+        })
+    });
+
+
+ app.controller('taskDetailsController',  ['$scope','$routeParams', function($scope, $routeParams) {
+        var id = $routeParams.id;
+        console.log(id);
+        $scope.task = {id: 1, name: "Do shopping", description: "Buy milk & coffe", done: false, budget: 5.555};
+    }]);
+
+    <form>
+            <label>Name: </label><input type="text" name="taskName" ng-model="newTask.name"><br>
+            <label>Description: </label><input type="text" name="taskDescription" ng-model="newTask.description"><br>
+            <label>Budget: </label><input type="text" name="taskBudget" ng-model="newTask.budget"><br>
+            <button ng-click="addTask()">Add</button>
+        </form>

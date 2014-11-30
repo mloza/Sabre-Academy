@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Example 1</title>
+</head>
+<body>
+<h1>All</h1>
+<ul>
+ {% for i in allTasks %}
+  <li>{{ loop.index+1 }}. {{ i }}</li>
+ {% endfor %}
+</ul>
+<h1>Done</h1>
+<ul>
+ {% for i in allDoneTasks %}
+ <li>{{ loop.index+1 }}. {{ i }}</li>
+ {% endfor %}
+</ul>
+<h1>With desc</h1>
+<ul>
+ {% for i in allTasksWithDo %}
+ <li>{{ loop.index+1 }}. {{ i }}</li>
+ {% endfor %}
+</ul>
+</body>
+</html>

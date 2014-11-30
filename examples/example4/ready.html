@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html ng-app="taskListApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Angular example 4</title>
+    <script src="../common/js/angular.min.js"></script>
+    <script src="../common/js/angular-locale_pl-pl.js"></script>
+    <script src="../common/js/angular-route.min.js"></script>
+</head>
+<body>
+<div ng-view>
+</div>
+<script>
+    var app = angular.module('taskListApp', ['ngRoute']);
+
+    app.config(function ($routeProvider) {
+        $routeProvider.when("/", {
+            controller: 'taskListController',
+            templateUrl: 'views/task-ready.html'
+        }).when("/details/:id", {
+            controller: 'taskDetailsController',
+            templateUrl: 'views/details-ready.html'
+        })
+    });
+
+    app.controller('taskDetailsController',  ['$scope','$routeParams', function($scope, $routeParams) {
+        var id = $routeParams.id;
+        console.log(id);
+        $scope.task = {id: 1, name: "Do shopping", description: "Buy milk & coffe", done: false, budget: 5.555};
+    }]);
+
+    app.controller('taskListController', function ($scope) {
+        $scope.taskList = [
+            {id: 1, name: "Do shopping", description: "Buy milk & coffe", done: false, budget: 5.555},
+            {id: 2, name: "Show presentation", description: "About Angular and Spring Boot",done: false,budget: 4.5678},
+            {id: 3, name: "Make it work!", description: "It's not working :(", done: true, budget: 1.2879}
+        ];
+
+        $scope.newTask = {
+            id: 7,
+            name: "",
+            description: "",
+            done: false,
+            budget: 0
+        };
+        $scope.addTask = function() {
+            $scope.taskList.push($scope.newTask);
+            $scope.newTask = {
+                id: 7,
+                name: "",
+                description: "",
+                done: false,
+                budget: 0
+            };
+        }
+    });
+</script>
+</body>
+</html>

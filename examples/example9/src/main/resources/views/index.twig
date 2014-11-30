@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html ng-app="taskListApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Angular example 4</title>
+    <script src="/js/angular.min.js"></script>
+    <script src="/js/angular-locale_pl-pl.js"></script>
+    <script src="/js/angular-route.min.js"></script>
+</head>
+<body>
+<div ng-view>
+</div>
+<script>
+    var app = angular.module('taskListApp', ['ngRoute']);
+
+    app.factory('taskService', function ($http) {
+        return {
+            getAllTasks: function () {
+                return $http.get("/task");
+            },
+            getTask: function (id) {
+                return $http.get("/task/" + id);
+            },
+            deleteTask: function (id) {
+                return $http.delete("/task/" + id);
+            },
+            createTask: function (task) {
+                return $http.post("/task", task);
+            }
+        }
+    });
+
+    app.config(function ($routeProvider) {
+        $routeProvider.when("/", {
+            controller: 'taskListController',
+            templateUrl: 'views/task-ready.html'
+        }).when("/details/:id", {
+            controller: 'taskDetailsController',
+            templateUrl: 'views/details-ready.html'
+        })
+    });
+
+    app.controller('taskDetailsController', ['$scope', '$routeParams', 'taskService', function ($scope, $routeParams, taskService) {
+        var id = $routeParams.id;
+        taskService.getTask(id).success(function(data) {
+            $scope.task = data;
+        });
+    }]);
+
+    app.controller('taskListController', ['$scope', 'taskService', function ($scope, taskService) {
+        taskService.getAllTasks().success(function (data) {
+            $scope.taskList = data;
+        });
+
+        $scope.deleteTask = function (id) {
+            taskService.deleteTask(id).success(function () {
+                taskService.getAllTasks().success(function(data) {
+                    $scope.taskList = data;
+                });
+            });
+        };
+
+        $scope.newTask = {
+            name: "",
+            description: "",
+            done: false,
+            budget: 0
+        };
+
+        $scope.addTask = function () {
+            taskService.createTask($scope.newTask).success(function (data) {
+                $scope.taskList.push(data);
+            });
+
+            $scope.newTask = {
+                name: "",
+                description: "",
+                done: false,
+                budget: 0
+            };
+        }
+    }]);
+</script>
+</body>
+</html>

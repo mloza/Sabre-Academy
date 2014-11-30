@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Example 1</title>
+</head>
+<body>
+<ul>
+ {% for i in greetings %}
+  <li>{{ loop.index+1 }}. {{ i }}</li>
+ {% endfor %}
+</ul>
+</body>
+</html>

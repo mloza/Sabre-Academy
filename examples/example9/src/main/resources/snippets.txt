@@ -1,0 +1,15 @@
+app.factory('taskService', function ($http) {
+        return {
+            getAllTasks: function () {
+                return $http.get("/task");
+            },
+            getTask: function (id) {
+                return $http.get("/task/" + id);
+            },
+            deleteTask: function (id) {
+                return $http.delete("/task/" + id);
+            },
+            createTask: function (task) {
+                return $http.post("/task", task);
+            }
+        }

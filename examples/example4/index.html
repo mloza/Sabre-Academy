@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html ng-app="taskListApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Angular example 4</title>
+    <script src="../common/js/angular.min.js"></script>
+    <script src="../common/js/angular-locale_pl-pl.js"></script>
+</head>
+<body>
+<div ng-controller="taskListController as tlc">
+    <h1>Task list!</h1>
+    <label>Search:</label>
+    <input type="text" ng-model="searchPhrase.name"/>
+    <br><br>
+
+    <table>
+        <tr>
+            <th>Done</th>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+        <tr ng-repeat="task in tlc.taskList | filter:searchPhrase">
+            <td><input type="checkbox" ng-checked="task.done"/></td>
+            <td>{{ task.id }}</td>
+            <td>{{ task.name }}</td>
+            <td>{{ task.description }}</td>
+            <td>{{ task.budget | currency }}</td>
+        </tr>
+    </table>
+</div>
+<script>
+    var app = angular.module('taskListApp', []);
+
+    app.controller('taskListController', function($scope) {
+        this.taskList = [
+            {id: 1, name: "Do shopping", description: "Buy milk & coffe", done: false, budget: 5.555 },
+            {id: 2, name: "Show presentation", description: "About Angular and Spring Boot", done: false, budget: 4.5678},
+            {id: 3, name: "Make it work!", description: "It's not working :(", done: true, budget: 1.2879}
+        ]
+    });
+</script>
+</body>
+</html>

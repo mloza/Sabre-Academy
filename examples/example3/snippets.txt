@@ -1,0 +1,20 @@
+this.taskList = [
+            {id: 1, name: "Do shopping", description: "Buy milk & coffe", done: false},
+            {id: 2, name: "Show presentation", description: "About Angular and Spring Boot", done: false},
+            {id: 3, name: "Make it work!", description: "It's not working :(", done: true}
+        ]
+
+<table>
+    <tr>
+        <th>Done</th>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Description</th>
+    </tr>
+    <tr ng-repeat="task in tlc.taskList | filter:searchPhrase">
+        <td><input type="checkbox" ng-checked="task.done"/></td>
+        <td>{{ task.id }}</td>
+        <td>{{ task.name }}</td>
+        <td>{{ task.description }}</td>
+    </tr>
+</table>
